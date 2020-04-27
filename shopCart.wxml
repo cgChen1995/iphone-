@@ -1,0 +1,28 @@
+<view>
+  <my-component active="{{selectId}}">
+    <van-cell class="navbar">
+      <view slot="title" style="color: #969799;">商品清单</view>
+      <view slot="">
+        <van-button type="default" bind:click="selectMange" size="small" icon="setting-o">{{topb==0?'管理':'完成'}} </van-button>
+      </view>
+    </van-cell>
+    <van-cell-group custom-class="shopCarts">
+      <van-checkbox-group value="{{result}}" ref="checkboxGroup" catch:change="checkboxGroupChange">
+        <van-checkbox wx:for="{{commodyList}}" wx:for-index="index" wx:for-item="item" name="{{index}}">
+          <van-card slot="" thumb="{{item.commody_img}}" title="{{item.commody_name}}" desc="{{item.commody_present}}" price="{{item.commody_money}}">
+            <view slot="bottom">
+              <van-stepper plus-class="stepper-class" minus-class="stepper-class" style="text-align: right;" value="{{ item.commody_cnt }}" integer button-size="25px" input-width="25px" max="{{item.commody_stock}}"  catch:minus="minus" data-index="{{index}}" data-minus="0" catchtap="preventD"
+                catch:plus="plus" data-plus="1"/>
+            </view>
+          </van-card>
+        </van-checkbox>
+      </van-checkbox-group>
+      <view class="buttom-style">{{commodyList.length>0?'~我已经见底啦~':'~我这里空空如也，赶紧囤货吧~'}}</view>
+    </van-cell-group>
+    <van-submit-bar price="{{money_Aount}}" button-text="{{topb==0?'结算':'删除'}}" bind:submit="payMoney">
+      <van-checkbox value="{{is_selectAll}}" bind:change="selectAll">全选</van-checkbox>
+
+    </van-submit-bar>
+    <van-dialog id="van-dialog" />
+  </my-component>
+</view>
